@@ -47,6 +47,7 @@
 			<td  class="minha-classe" :class="{'pago':o.done,'nao-pago':!o.done}">{{o.done | doneLabel}}</td>
 			<td>
 				<a href="#" @click.prevent="loadbill(o)">Editar</a>
+				<a href="#" @click.prevent="delbill(o)">excluir</a>
 			</td>
 		</tr>
 	</tbody>
