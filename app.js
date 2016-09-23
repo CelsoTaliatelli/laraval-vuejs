@@ -59,6 +59,13 @@ var app = new Vue({
 		};
 		this.activedView = 0;
 	},
+	delbill:function(bill){
+		if(confirm('Deseja excluir esta conta ?')){
+			this.bill = bill;
+			console.log(this.bill.name);
+			this.bills.splice(this.bill,1);
+		}
+	},
 	loadbill:function(bill){
 		this.bill = bill;
 		this.activedView = 1;
