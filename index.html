@@ -13,13 +13,16 @@
 			color:red;
 		}
 		.minha-classe{
-			background-color:blue
+			background-color:#f0f0f0;
+		}
+		.nao-cadastrado{
+			color:#808080;
 		}
 	</style>
 </head>
 <body id="app">
 <h1>{{title}}</h1>
-<h3>{{status}}</h3>
+<h3 :class="[statusClass]">{{status}}</h3>
 <nav>
 	<ul>
 		<li v-for="o in menus"><a href="#" @click.prevent="showView(o.id)">{{o.name}}</a></li>
@@ -48,6 +51,8 @@
 			<td>
 				<a href="#" @click.prevent="loadbill(o)">Editar</a>
 				<a href="#" @click.prevent="delbill(o)">excluir</a>
+				<button @click.prevent="pgBill(o)">Paga</button>
+				<button @click.prevent="nPgBill(o)">Não paga</button>
 			</td>
 		</tr>
 	</tbody>
