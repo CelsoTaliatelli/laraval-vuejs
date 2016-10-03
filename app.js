@@ -1,6 +1,73 @@
-var app = new Vue({
-	el:"#app",
-	data:{
+
+Vue.filter('doneLabel',function(value){
+	if(value == false){
+		return "Não Paga";
+	}else{
+		return "Paga";
+	}
+});
+
+var appComponent = Vue.extend({
+	template:
+	`<h1>{{title}}</h1>
+<h3 :class="[statusClass]">{{status}}</h3>
+<nav>
+	<ul>
+		<li v-for="o in menus"><a href="#" @click.prevent="showView(o.id)">{{o.name}}</a></li>
+	</ul>
+</nav>
+<div v-if="activedView == 0">
+	<table border="1" cellpadding="10">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Vencimento</td>
+			<td>Nome</td>
+			<td>Valor</td>
+			<td>Paga</td>
+			<td>Ações</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="(index,o) in bills">
+			<td>{{index + 1}}</td>
+			<td>{{o.date_due}}</td>
+			<td>{{o.name}}</td>
+			<td>{{o.value | currency 'R$' 2}}</td>
+			<td  class="minha-classe" :class="{'pago':o.done,'nao-pago':!o.done}">{{o.done | doneLabel}}</td>
+			<td>
+				<a href="#" @click.prevent="loadbill(o)">Editar</a>
+				<a href="#" @click.prevent="delbill(o)">excluir</a>
+				<button @click.prevent="pgBill(o)">Paga</button>
+				<button @click.prevent="nPgBill(o)">Não paga</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<!--<div v-if="activedView == 1">-->
+	<form name="form" @submit.prevent="submit">
+	<br/><br/>
+		<label for="">Vencimento</label>
+		<input type="text" v-model="bill.date_due">
+	<br/><br/>	
+		<label for="">Nome</label>
+		<select name="" id="" v-model="bill.name">
+			<option v-for="o in names" value="{{o}}">{{o}}</option>
+		</select>
+	<br/><br/>	
+		<label for="">valor</label>
+		<input type="text" v-model="bill.value">
+		<br/><br/>
+		<label for="">Pago ?</label>
+		<input type="checkbox" v-model="bill.done"/>
+		<br/><br/>
+		<input type="submit" value="enviar">
+	</form>
+<!--</div>-->`,
+	data:function(){
+		return{
 		title:"Contas a receber",
 		menus:[
 			{id:0,name:"Listar Contas"},
@@ -27,7 +94,7 @@ var app = new Vue({
 			{date_due:'22/08/2016',name:"Conta de telefone",value:75.90,done:0},
 			{date_due:'23/08/2016',name:"Fatura Cartão de crédito",value:505.90,done:0},
 		],
-		
+		};
 	},
 	computed:{
 		status:function(){
@@ -84,6 +151,7 @@ var app = new Vue({
 		if(confirm('Deseja excluir esta conta ?')){
 			this.bill = bill;
 			this.bills.splice(this.bill,1);
+			//ou this.bill.$remove(bill)
 		}
 	},
 	loadbill:function(bill){
@@ -100,13 +168,11 @@ var app = new Vue({
 	}
 
 	},
-	
-	
 });
-Vue.filter('doneLabel',function(value){
-	if(value == false){
-		return "Não Paga";
-	}else{
-		return "Paga";
-	}
+
+Vue.component('app-component',appComponent);
+
+var app = new Vue({
+	
+	el:"#app",
 });
