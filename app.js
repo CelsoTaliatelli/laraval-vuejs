@@ -32,29 +32,10 @@ var menuComponent = Vue.extend({
 	}
 });
 Vue.component('menu-component',menuComponent);
-var appComponent = Vue.extend({
+
+var billListComponent = Vue.extend({
 	template:
-	`<style type="text/css">
-		.pago{
-			color:green;
-		}
-		.nao-pago{
-			color:red;
-		}
-		.minha-classe{
-			background-color:#f0f0f0;
-		}
-		.nao-cadastrado{
-			color:#808080;
-		}
-	</style>
-	<h1>{{title}}</h1>
-<h3 :class="[statusClass]">{{status}}</h3>
-
-<menu-component></menu-component>
-
-<div v-if="activedView == 0">
-	<table border="1" cellpadding="10">
+	`<table border="1" cellpadding="10">
 	<thead>
 		<tr>
 			<td>#</td>
@@ -81,7 +62,57 @@ var appComponent = Vue.extend({
 			</td>
 		</tr>
 	</tbody>
-</table>
+</table>`,
+	data: function(){
+		return {
+			bills:[
+			{date_due:'20/08/2016',name:"Conta de luz",value:25.90,done:0},
+			{date_due:'21/08/2016',name:"Conta de água",value:35.90,done:1},
+			{date_due:'22/08/2016',name:"Conta de telefone",value:75.90,done:0},
+			{date_due:'23/08/2016',name:"Fatura Cartão de crédito",value:505.90,done:0},
+		]
+
+		};
+	},
+	methods:{
+		delbill:function(bill){
+		if(confirm('Deseja excluir esta conta ?')){
+			this.bill = bill;
+			this.bills.splice(this.bill,1);
+			//ou this.bill.$remove(bill)
+		}
+	},
+	loadbill:function(bill){
+		this.bill = bill;
+		this.$parent.activedView = 1;
+	},
+
+	},
+});
+Vue.component('bill-list-component',billListComponent);
+var appComponent = Vue.extend({
+	template:
+	`<style type="text/css">
+		.pago{
+			color:green;
+		}
+		.nao-pago{
+			color:red;
+		}
+		.minha-classe{
+			background-color:#f0f0f0;
+		}
+		.nao-cadastrado{
+			color:#808080;
+		}
+	</style>
+	<h1>{{title}}</h1>
+<h3 :class="[statusClass]">{{status}}</h3>
+
+<menu-component></menu-component>
+
+<div v-if="activedView == 0">
+	<bill-list-component></bill-list-component>
 </div>
 <!--<div v-if="activedView == 1">-->
 	<form name="form" @submit.prevent="submit">
@@ -121,12 +152,7 @@ var appComponent = Vue.extend({
 			"Supermercado"
 
 		],
-		bills:[
-			{date_due:'20/08/2016',name:"Conta de luz",value:25.90,done:0},
-			{date_due:'21/08/2016',name:"Conta de água",value:35.90,done:1},
-			{date_due:'22/08/2016',name:"Conta de telefone",value:75.90,done:0},
-			{date_due:'23/08/2016',name:"Fatura Cartão de crédito",value:505.90,done:0},
-		],
+		
 		};
 	},
 	computed:{
@@ -175,17 +201,7 @@ var appComponent = Vue.extend({
 		};
 		this.activedView = 0;
 	},
-	delbill:function(bill){
-		if(confirm('Deseja excluir esta conta ?')){
-			this.bill = bill;
-			this.bills.splice(this.bill,1);
-			//ou this.bill.$remove(bill)
-		}
-	},
-	loadbill:function(bill){
-		this.bill = bill;
-		this.activedView = 1;
-	},
+	
 	pgBill:function(bill){
 		this.bill = bill;
 		this.bill.done = 1;
