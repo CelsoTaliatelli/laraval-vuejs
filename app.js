@@ -7,15 +7,52 @@ Vue.filter('doneLabel',function(value){
 	}
 });
 
+var menuComponent = Vue.extend({
+	template:
+	`<nav>
+		<ul>
+			<li v-for="o in menus"><a href="#" @click.prevent="showView(o.id)">{{o.name}}</a></li>
+		</ul>
+	</nav>`,
+	data:function(){
+		return {
+			menus:[
+			{id:0,name:"Listar Contas"},
+			{id:1,name:"Criar Contas"}
+		],
+		};
+	},
+	methods:{
+		showView:function(id){
+			this.activedView == id;
+			if(id == 1){
+				this.formType = 'insert';
+			};
+		},
+	}
+});
+Vue.component('menu-component',menuComponent);
 var appComponent = Vue.extend({
 	template:
-	`<h1>{{title}}</h1>
+	`<style type="text/css">
+		.pago{
+			color:green;
+		}
+		.nao-pago{
+			color:red;
+		}
+		.minha-classe{
+			background-color:#f0f0f0;
+		}
+		.nao-cadastrado{
+			color:#808080;
+		}
+	</style>
+	<h1>{{title}}</h1>
 <h3 :class="[statusClass]">{{status}}</h3>
-<nav>
-	<ul>
-		<li v-for="o in menus"><a href="#" @click.prevent="showView(o.id)">{{o.name}}</a></li>
-	</ul>
-</nav>
+
+<menu-component></menu-component>
+
 <div v-if="activedView == 0">
 	<table border="1" cellpadding="10">
 	<thead>
@@ -69,10 +106,6 @@ var appComponent = Vue.extend({
 	data:function(){
 		return{
 		title:"Contas a receber",
-		menus:[
-			{id:0,name:"Listar Contas"},
-			{id:1,name:"Criar Contas"}
-		],
 		activedView:0,
 		formType:'insert',
 		bill:{
@@ -129,12 +162,7 @@ var appComponent = Vue.extend({
 	},
 
 	methods:{
-		showView:function(id){
-			this.activedView == id;
-			if(id == 1){
-				this.formType = 'insert';
-			}
-		},
+		
 		submit:function(){
 		if(this.formType == 'insert'){
 			this.bills.push(this.bill);	
@@ -169,7 +197,6 @@ var appComponent = Vue.extend({
 
 	},
 });
-
 Vue.component('app-component',appComponent);
 
 var app = new Vue({
