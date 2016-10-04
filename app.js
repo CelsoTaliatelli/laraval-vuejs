@@ -24,9 +24,9 @@ var menuComponent = Vue.extend({
 	},
 	methods:{
 		showView:function(id){
-			this.activedView == id;
+			this.$parent.activedView == id;
 			if(id == 1){
-				this.formType = 'insert';
+				this.$parent.formType = 'insert';
 			};
 		},
 	}
