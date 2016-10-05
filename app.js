@@ -166,7 +166,7 @@ var appComponent = Vue.extend({
 <menu-component></menu-component>
 
 <div v-show="activedView == 0">
-	<bill-list-component></bill-list-component>
+	<bill-list-component v-ref:bill-list-component></bill-list-component>
 </div>
 <div v-show="activedView == 1">
 	<bill-create-component v-bind:bill.sync="bill" v-bind:form-type="formType"></bill-create-component>
@@ -188,10 +188,11 @@ var appComponent = Vue.extend({
 	},
 	computed:{
 		status:function(){
+			
 			var count = 0;
-			for(var i in this.bills){
-
-				if(!this.bills[i].done){
+			var billListComponent = this.$refs.billListComponent;
+			for(var i in billListComponent){
+				if(!billListComponent.bills[i].done){
 					count++;
 					
 				}
@@ -202,9 +203,9 @@ var appComponent = Vue.extend({
 
 		statusClass:function(){
 			var count = 0;
-			for(var i in this.bills){
+			for(var i in billListComponent){
 
-				if(!this.bills[i].done){
+				if(!billListComponent.bills[i].done){
 					count++;
 				}
 			}
