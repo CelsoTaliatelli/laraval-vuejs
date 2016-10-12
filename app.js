@@ -1,4 +1,4 @@
-
+/*
 Vue.filter('doneLabel',function(value){
 	if(value == false){
 		return "Não Paga";
@@ -24,9 +24,11 @@ var menuComponent = Vue.extend({
 	},
 	methods:{
 		showView:function(id){
-			this.$parent.activedView == id;
+			this.$dispatch('change-activedview',id);
+			//this.$parent.activedView == id;
 			if(id == 1){
-				this.$parent.formType = 'insert';
+				this.$dispatch('change-formtype','insert');
+				//this.$parent.formType = 'insert';
 			};
 		},
 	}
@@ -234,9 +236,34 @@ var appComponent = Vue.extend({
 
 	},
 });
+events:{
+	'change-activedview':function(activedView){
+		this.activedView = activedView;
+	}
+	'change-formtype':function(formType){
+		this.formType = formType;
+	}
+}
 Vue.component('app-component',appComponent);
 
 var app = new Vue({
 	
 	el:"#app",
 });
+*/
+
+const Pagina1 = {template:'<h1>Pagina 1</h1>'}
+const Pagina2 = {template:'<h1>Pagina 2</h1>'}
+
+const routes = [
+	{path:'/pagina1',component:Pagina1},
+	{path:'/pagina2',component:Pagina2}
+]
+
+const router = new VueRouter({
+	routes
+})
+
+const app = new Vue({
+	router
+}).$mount('#app')

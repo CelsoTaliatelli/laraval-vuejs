@@ -8,9 +8,19 @@
 	
 </head>
 <body id="app">
-<app-component></app-component>
+<h1>Hello App</h1>
+ <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- <router-link> will be rendered as an `<a>` tag by default -->
+    <router-link to="/pagina1">Go to page 1</router-link>
+    <router-link to="/pagina2">Go to page 2</router-link>
+  </p>
+<!--<app-component></app-component>-->
+<router-view></router-view>
 	
 <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
 <script type="text/javascript" src="app.js"></script>	
 </body>
 </html>
