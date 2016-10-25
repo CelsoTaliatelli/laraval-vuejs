@@ -252,18 +252,18 @@ var app = new Vue({
 });
 */
 
-const Pagina1 = {template:'<h1>Pagina 1</h1>'}
-const Pagina2 = {template:'<h1>Pagina 2</h1>'}
+var Pagina1 = {template:'<h1>Pagina 1</h1>'}
+var Pagina2 = {template:'<h1>Pagina 2</h1>'}
 
-const routes = [
+var routes = [
 	{path:'/pagina1',component:Pagina1},
 	{path:'/pagina2',component:Pagina2}
 ]
 
-const router = new VueRouter({
+var router = new VueRouter({
 	routes
 })
 
-const app = new Vue({
+var app = new Vue({
 	router
 }).$mount('#app')
