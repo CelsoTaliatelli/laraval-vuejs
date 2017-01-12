@@ -9,7 +9,7 @@
   "author": "Celso Henrique Taliatelli",
   "license": "ISC",
   "dependencies": {
-    "vue": "^1.0.26",
-    "vue-router": "^2.0.0"
+    "vue": "^1.0.28",
+    "vue-router": "^0.7.13"
   }
 }

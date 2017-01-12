@@ -8,19 +8,26 @@
 	
 </head>
 <body id="app">
-<h1>Hello App</h1>
- <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- <router-link> will be rendered as an `<a>` tag by default -->
-    <router-link to="/pagina1">Go to page 1</router-link>
-    <router-link to="/pagina2">Go to page 2</router-link>
-  </p>
-<!--<app-component></app-component>-->
-<router-view></router-view>
+ <main-component></main-component>
+
 	
 <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
 <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
-<script type="text/javascript" src="app.js"></script>	
+<script type="text/javascript" src="filters.js"></script>
+
+<script type="text/javascript" src="bill-pay/bill-pay-menu.component.js"></script>
+<script type="text/javascript" src="bill-pay/bill-pay-list.component.js"></script>
+<script type="text/javascript" src="bill-pay/bill-pay-create.component.js"></script>
+<script type="text/javascript" src="bill-pay/bill-pay.component.js"></script>
+
+<script type="text/javascript" src="bill-receive/bill-receive-menu.component.js"></script>
+<script type="text/javascript" src="bill-receive/bill-receive-list.component.js"></script>
+<script type="text/javascript" src="bill-receive/bill-receive-create.component.js"></script>
+<script type="text/javascript" src="bill-receive/bill-receive.component.js"></script>
+
+
+<script type="text/javascript" src="bill.component.js"></script>
+<script type="text/javascript" src="dashboard/dashboard.component.js"></script>
+<script type="text/javascript" src="main.js"></script>	
 </body>
 </html>
