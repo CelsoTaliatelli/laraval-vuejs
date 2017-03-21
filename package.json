@@ -11,5 +11,6 @@
   "dependencies": {
     "vue": "^1.0.28",
     "vue-router": "^0.7.13"
+    "lite-server": "^2.3.0"
   }
 }
